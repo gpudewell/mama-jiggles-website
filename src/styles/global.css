@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — pulled from the Mama Jiggles logo */
+  --color-navy: #1a2848;
+  --color-navy-deep: #11192f;
+  --color-red: #c8252c;
+  --color-red-bright: #e63946;
+  --color-cream: #f5ecd9;
+  --color-cream-light: #faf3e2;
+  --color-cream-dark: #ebdfc1;
+  --color-ink: #1a1a1a;
+
+  /* Fonts */
+  --font-display: "Alfa Slab One", "Ultra", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-script: "Special Elite", "Courier New", monospace;
+}
+
+@layer base {
+  html {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    background-image:
+      radial-gradient(at 20% 20%, rgba(200, 37, 44, 0.04) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, rgba(26, 40, 72, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, rgba(200, 37, 44, 0.03) 0px, transparent 50%);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+  }
+}
+
+@layer components {
+  .banner {
+    position: relative;
+    display: inline-block;
+    background: var(--color-red);
+    color: var(--color-cream);
+    padding: 0.5rem 2rem;
+    font-family: var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .banner::before,
+  .banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 0.75rem;
+    height: 100%;
+    background: var(--color-red);
+  }
+  .banner::before {
+    left: -0.75rem;
+    clip-path: polygon(100% 0, 100% 100%, 0 50%);
+  }
+  .banner::after {
+    right: -0.75rem;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+
+  .star-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--color-red);
+  }
+  .star-divider::before,
+  .star-divider::after {
+    content: "";
+    height: 2px;
+    flex: 1;
+    max-width: 6rem;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+  }
+
+  .halftone {
+    position: relative;
+  }
+  .halftone::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(26, 26, 26, 0.08) 1px, transparent 1.5px);
+    background-size: 8px 8px;
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: var(--color-red);
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 3px solid var(--color-navy);
+    box-shadow: 4px 4px 0 var(--color-navy);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-navy);
+  }
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-navy);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--color-navy);
+    font-family: var(--font-display);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 3px solid var(--color-navy);
+    transition: background 0.12s ease, color 0.12s ease;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    background: var(--color-navy);
+    color: var(--color-cream);
+  }
+}

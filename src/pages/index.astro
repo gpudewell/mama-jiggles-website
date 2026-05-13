@@ -1,0 +1,433 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AgeGate from "../components/AgeGate.astro";
+
+const orderEmail = "mamajigglesgelatin@gmail.com";
+const orderSubject = "Mama Jiggles Order Inquiry";
+const orderBody =
+  "Hey Mama Jiggles!%0D%0A%0D%0AI'd like to place an order:%0D%0A%0D%0A• Flavors / quantity:%0D%0A• Event date:%0D%0A• Pickup or delivery:%0D%0A• My name & phone:%0D%0A%0D%0AThanks!";
+const mailto = `mailto:${orderEmail}?subject=${encodeURIComponent(orderSubject)}&body=${orderBody}`;
+
+const flavors = [
+  { name: "Classic Cherry Bomb", note: "Vodka · Cherry" },
+  { name: "Lime in the Coconut", note: "Rum · Lime · Coconut" },
+  { name: "Peach Please", note: "Whiskey · Peach" },
+  { name: "Blue Bombshell", note: "Vodka · Blue Raspberry" },
+  { name: "Strawberry Sweetheart", note: "Tequila · Strawberry" },
+  { name: "Ask Mama", note: "Custom flavors on request" },
+];
+---
+
+<Layout>
+  <AgeGate />
+
+  <!-- ============================================ HERO -->
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="hero__stars" aria-hidden="true">★ ★ ★</div>
+
+      <div class="hero__logo-wrap">
+        <img
+          src="/logo.png"
+          alt="Mama Jiggles logo — a vintage Rosie-the-Riveter style woman holding a Jell-O shot"
+          class="hero__logo"
+          width="600"
+          height="600"
+          fetchpriority="high"
+        />
+      </div>
+
+      <p class="hero__tagline">
+        Hand-crafted Jell-O shots,<br />
+        made with love <em>(and a little something extra).</em>
+      </p>
+
+      <div class="hero__cta">
+        <a href={mailto} class="btn-primary">Order Now</a>
+        <a href="#flavors" class="btn-secondary">See the Menu</a>
+      </div>
+
+      <div class="hero__banner-wrap">
+        <span class="banner">Locally Made · Party Approved</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================ ABOUT -->
+  <section class="section section--cream-dark">
+    <div class="container">
+      <div class="star-divider"><span>★</span></div>
+      <h2 class="section__title">Who's Mama?</h2>
+      <p class="section__lede">
+        Mama Jiggles is the good-time gal you call when your party needs a kick.
+        Every shot is hand-poured in small batches with quality liquor, real
+        flavor, and just enough wobble to make the night memorable.
+      </p>
+      <p class="section__sub">
+        Birthdays. Bachelorettes. Tailgates. Tuesdays. Whatever the occasion —
+        we'll bring the jiggle.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================ FLAVORS -->
+  <section id="flavors" class="section section--navy">
+    <div class="container">
+      <div class="star-divider star-divider--light"><span>★</span></div>
+      <h2 class="section__title section__title--light">The Menu</h2>
+      <p class="section__lede section__lede--light">
+        A rotating lineup of fan favorites. Don't see what you want?
+        Just ask — Mama takes requests.
+      </p>
+
+      <ul class="flavor-grid" role="list">
+        {flavors.map((f) => (
+          <li class="flavor-card">
+            <div class="flavor-card__cup" aria-hidden="true"></div>
+            <h3 class="flavor-card__name">{f.name}</h3>
+            <p class="flavor-card__note">{f.note}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================ HOW IT WORKS -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="star-divider"><span>★</span></div>
+      <h2 class="section__title">How to Order</h2>
+
+      <ol class="steps" role="list">
+        <li class="step">
+          <span class="step__num">1</span>
+          <h3 class="step__title">Send a Note</h3>
+          <p class="step__body">
+            Email Mama with your flavor wishlist, headcount, and event date.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num">2</span>
+          <h3 class="step__title">Get a Quote</h3>
+          <p class="step__body">
+            Mama confirms availability, pricing, and pickup or delivery details.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num">3</span>
+          <h3 class="step__title">Party On</h3>
+          <p class="step__body">
+            Pick up your shots (or have them delivered) and let the good times jiggle.
+          </p>
+        </li>
+      </ol>
+
+      <div class="cta-block">
+        <a href={mailto} class="btn-primary cta-block__btn">Order via Email</a>
+        <p class="cta-block__email">
+          or write us directly:
+          <a href={`mailto:${orderEmail}`} class="cta-block__link">{orderEmail}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__brand">Mama Jiggles</p>
+      <p class="footer__email">
+        <a href={`mailto:${orderEmail}`}>{orderEmail}</a>
+      </p>
+      <p class="footer__legal">
+        Must be 21+ to consume. Please drink responsibly.
+      </p>
+      <p class="footer__copy">© {new Date().getFullYear()} Mama Jiggles. All rights reserved.</p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* ============================================ HERO */
+  .hero {
+    position: relative;
+    padding: 3rem 1.25rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero__inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .hero__stars {
+    color: var(--color-red);
+    letter-spacing: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero__logo-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+  .hero__logo {
+    width: min(80vw, 360px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 20px rgba(26, 40, 72, 0.18));
+  }
+  .hero__tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    color: var(--color-navy);
+    line-height: 1.15;
+    margin: 0 0 0.4rem;
+  }
+  .hero__tagline em {
+    font-style: italic;
+    color: var(--color-red);
+    font-weight: 400;
+  }
+  .hero__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    margin: 2rem auto 2.5rem;
+    align-items: center;
+  }
+  .hero__cta .btn-primary,
+  .hero__cta .btn-secondary {
+    width: min(100%, 320px);
+  }
+  .hero__banner-wrap {
+    margin-top: 1rem;
+  }
+  @media (min-width: 540px) {
+    .hero__cta {
+      flex-direction: row;
+      justify-content: center;
+    }
+    .hero__cta .btn-primary,
+    .hero__cta .btn-secondary {
+      width: auto;
+    }
+  }
+  @media (min-width: 768px) {
+    .hero {
+      padding: 5rem 2rem 6rem;
+    }
+  }
+
+  /* ============================================ SHARED SECTIONS */
+  .section {
+    padding: 4rem 1.25rem;
+    position: relative;
+  }
+  .section--cream { background: var(--color-cream); }
+  .section--cream-dark { background: var(--color-cream-dark); }
+  .section--navy {
+    background: var(--color-navy);
+    color: var(--color-cream);
+  }
+  .section--navy::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(245, 236, 217, 0.05) 1px, transparent 1.5px);
+    background-size: 12px 12px;
+    pointer-events: none;
+  }
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .section__title {
+    font-size: clamp(2.25rem, 7vw, 3.5rem);
+    color: var(--color-navy);
+    text-align: center;
+    margin: 1.25rem 0 1rem;
+    text-transform: uppercase;
+  }
+  .section__title--light { color: var(--color-cream); }
+  .section__lede {
+    font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+    color: var(--color-ink);
+    text-align: center;
+    max-width: 36rem;
+    margin: 0 auto 1.25rem;
+    line-height: 1.55;
+  }
+  .section__lede--light { color: var(--color-cream); opacity: 0.92; }
+  .section__sub {
+    text-align: center;
+    color: var(--color-navy);
+    font-family: var(--font-script);
+    font-size: 1rem;
+    letter-spacing: 0.03em;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+  .star-divider--light { color: var(--color-cream); }
+  .star-divider span { font-size: 1.25rem; }
+
+  /* ============================================ FLAVORS */
+  .flavor-grid {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media (min-width: 540px) {
+    .flavor-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (min-width: 820px) {
+    .flavor-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  .flavor-card {
+    background: var(--color-cream);
+    color: var(--color-navy);
+    padding: 1.75rem 1.25rem 1.5rem;
+    border: 3px solid var(--color-cream);
+    box-shadow: 5px 5px 0 var(--color-red);
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .flavor-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--color-red);
+  }
+  .flavor-card__cup {
+    width: 32px;
+    height: 36px;
+    margin: 0 auto 0.85rem;
+    background: var(--color-red);
+    clip-path: polygon(15% 0, 85% 0, 75% 100%, 25% 100%);
+    position: relative;
+  }
+  .flavor-card__cup::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  .flavor-card__name {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    margin: 0 0 0.4rem;
+    line-height: 1.15;
+    color: var(--color-navy);
+  }
+  .flavor-card__note {
+    font-family: var(--font-script);
+    font-size: 0.85rem;
+    color: var(--color-navy);
+    opacity: 0.75;
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============================================ STEPS */
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 720px) {
+    .steps { grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+  }
+  .step {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+  .step__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: var(--color-red);
+    color: var(--color-cream);
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin: 0 auto 0.75rem;
+    border: 3px solid var(--color-navy);
+  }
+  .step__title {
+    font-size: 1.4rem;
+    color: var(--color-navy);
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+  }
+  .step__body {
+    color: var(--color-ink);
+    line-height: 1.55;
+    margin: 0;
+    max-width: 22rem;
+    margin: 0 auto;
+  }
+
+  /* ============================================ CTA BLOCK */
+  .cta-block {
+    margin-top: 3rem;
+    text-align: center;
+  }
+  .cta-block__btn {
+    font-size: 1.05rem;
+    padding: 1.15rem 2.5rem;
+  }
+  .cta-block__email {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-script);
+    color: var(--color-navy);
+    font-size: 0.95rem;
+  }
+  .cta-block__link {
+    color: var(--color-red);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ============================================ FOOTER */
+  .footer {
+    background: var(--color-navy-deep);
+    color: var(--color-cream);
+    padding: 2.5rem 1.25rem 2rem;
+    text-align: center;
+  }
+  .footer__brand {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-cream);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .footer__email a {
+    color: var(--color-cream);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 0.95rem;
+  }
+  .footer__legal {
+    margin: 1rem auto 0.5rem;
+    font-family: var(--font-script);
+    font-size: 0.85rem;
+    color: var(--color-cream);
+    opacity: 0.7;
+    max-width: 28rem;
+  }
+  .footer__copy {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    margin: 0.5rem 0 0;
+  }
+</style>
