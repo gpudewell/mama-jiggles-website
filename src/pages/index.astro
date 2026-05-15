@@ -9,12 +9,42 @@ const orderBody =
 const mailto = `mailto:${orderEmail}?subject=${encodeURIComponent(orderSubject)}&body=${orderBody}`;
 
 const flavors = [
-  { name: "Classic Cherry Bomb", note: "Vodka · Cherry" },
-  { name: "Lime in the Coconut", note: "Rum · Lime · Coconut" },
-  { name: "Peach Please", note: "Whiskey · Peach" },
-  { name: "Blue Bombshell", note: "Vodka · Blue Raspberry" },
-  { name: "Strawberry Sweetheart", note: "Tequila · Strawberry" },
-  { name: "Ask Mama", note: "Custom flavors on request" },
+  { name: "Guava 'nother one", note: "Tequila, guava, lime" },
+  { name: "Summertime Gal", note: "Vodka, strawberry, lemon" },
+  { name: "Boozeberry", note: "Vodka, blueberry, lemon" },
+  { name: "Mamacita", note: "Vodka, tamarindo, mango, a whisper of spice" },
+  { name: "Watermelon Sugar Jiggle", note: "White rum, fresh watermelon, homemade mint simple syrup" },
+  { name: "The Bougie Broad", note: "Gin, lemon, elderflower" },
+  { name: "Gummy Gone Wild", note: "Raspberry vodka, peach schnapps, cranberry, lemon" },
+];
+
+const packages = [
+  {
+    name: "The Pregame",
+    count: 50,
+    price: 100,
+    includes: "One flavor",
+  },
+  {
+    name: "The Kickback",
+    count: 100,
+    price: 175,
+    includes: "Two flavors",
+  },
+  {
+    name: "The Party",
+    count: 200,
+    price: 340,
+    includes: "Two flavors",
+    perk: "Free delivery within 10 miles",
+  },
+  {
+    name: "The Grand Affair",
+    count: 300,
+    price: 500,
+    includes: "Three flavors + one custom flavor & color",
+    perk: "Free delivery within 10 miles",
+  },
 ];
 ---
 
@@ -59,13 +89,9 @@ const flavors = [
       <div class="star-divider"><span>★</span></div>
       <h2 class="section__title">Who's Mama?</h2>
       <p class="section__lede">
-        Mama Jiggles is the good-time gal you call when your party needs a kick.
-        Every shot is hand-poured in small batches with quality liquor, real
-        flavor, and just enough wobble to make the night memorable.
-      </p>
-      <p class="section__sub">
-        Birthdays. Bachelorettes. Tailgates. Tuesdays. Whatever the occasion —
-        we'll bring the jiggle.
+        Every batch is made from scratch, hand poured with quality
+        ingredients, real flavors, and just enough wobble to make the
+        night memorable.
       </p>
     </div>
   </section>
@@ -89,6 +115,53 @@ const flavors = [
           </li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <!-- ============================================ PACKAGES -->
+  <section id="packages" class="section section--cream-dark">
+    <div class="container">
+      <div class="star-divider"><span>★</span></div>
+      <h2 class="section__title">The Packages</h2>
+      <p class="section__lede">
+        Whether you're rallying the squad or throwing the bash of the
+        year, Mama's got a package with your name on it.
+      </p>
+
+      <ul class="package-grid" role="list">
+        {packages.map((p) => (
+          <li class={`package-card${p.perk ? " package-card--featured" : ""}`}>
+            {p.perk && <span class="package-card__ribbon">★ Free Delivery</span>}
+            <h3 class="package-card__name">{p.name}</h3>
+            <div class="package-card__price">${p.price}</div>
+            <div class="package-card__count">{p.count} shots</div>
+            <p class="package-card__includes">{p.includes}</p>
+            {p.perk && (
+              <p class="package-card__perk">{p.perk}</p>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      <div class="addons">
+        <h3 class="addons__title">Add-ons</h3>
+        <ul class="addons__list" role="list">
+          <li class="addons__item">
+            <span class="addons__label">
+              <strong>Custom flavor & color</strong>
+              <span class="addons__qty">on batches of 50+</span>
+            </span>
+            <span class="addons__price">$10</span>
+          </li>
+          <li class="addons__item">
+            <span class="addons__label">
+              <strong>Local delivery</strong>
+              <span class="addons__qty">within 10 miles</span>
+            </span>
+            <span class="addons__price">$10</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -330,6 +403,161 @@ const flavors = [
     opacity: 0.75;
     margin: 0;
     letter-spacing: 0.04em;
+  }
+
+  /* ============================================ PACKAGES */
+  .package-grid {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .package-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  .package-card {
+    position: relative;
+    background: var(--color-cream);
+    color: var(--color-navy);
+    padding: 1.75rem 1.5rem 1.5rem;
+    border: 3px solid var(--color-navy);
+    box-shadow: 6px 6px 0 var(--color-red);
+    text-align: center;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .package-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--color-red);
+  }
+  .package-card--featured {
+    background: var(--color-navy);
+    color: var(--color-cream);
+    box-shadow: 6px 6px 0 var(--color-cream-dark);
+  }
+  .package-card--featured:hover {
+    box-shadow: 8px 8px 0 var(--color-cream-dark);
+  }
+  .package-card__ribbon {
+    position: absolute;
+    top: -0.85rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-red);
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.85rem;
+    border: 2px solid var(--color-navy);
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .package-card--featured .package-card__ribbon {
+    border-color: var(--color-cream);
+  }
+  .package-card__name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    margin: 0.5rem 0 0.75rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .package-card__price {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    color: var(--color-red);
+    line-height: 1;
+    margin: 0 0 0.25rem;
+  }
+  .package-card--featured .package-card__price {
+    color: var(--color-cream);
+  }
+  .package-card__count {
+    font-family: var(--font-script);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+  .package-card__includes {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    margin: 0 0 0.85rem;
+    flex: 1;
+  }
+  .package-card__perk {
+    margin: 0.5rem 0 0;
+    padding-top: 0.85rem;
+    border-top: 1px dashed currentColor;
+    font-family: var(--font-script);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+  }
+
+  /* ============================================ ADD-ONS */
+  .addons {
+    margin: 3rem auto 0;
+    max-width: 32rem;
+    background: var(--color-cream);
+    border: 2px dashed var(--color-navy);
+    padding: 1.5rem 1.5rem 1.25rem;
+  }
+  .addons__title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-navy);
+    text-align: center;
+    margin: 0 0 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .addons__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .addons__item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted rgba(26, 40, 72, 0.3);
+  }
+  .addons__item:last-child {
+    border-bottom: none;
+  }
+  .addons__label {
+    color: var(--color-navy);
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .addons__label strong {
+    font-weight: 600;
+  }
+  .addons__qty {
+    display: block;
+    font-family: var(--font-script);
+    font-size: 0.78rem;
+    opacity: 0.7;
+    letter-spacing: 0.04em;
+    margin-top: 0.15rem;
+  }
+  .addons__price {
+    font-family: var(--font-display);
+    color: var(--color-red);
+    font-size: 1.25rem;
+    flex-shrink: 0;
   }
 
   /* ============================================ STEPS */
