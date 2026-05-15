@@ -2,8 +2,32 @@
   "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
   "name": "mama-jiggles-website",
   "compatibility_date": "2025-09-01",
+
+  // Static-asset hosting: Workers serves files from ./dist/ with no
+  // user-defined Worker script. not_found_handling tells the runtime
+  // to serve /404.html when no file matches the request path.
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page"
+  },
+
+  // Custom-domain routes. Both apex and www are bound to this Worker.
+  // Wrangler treats already-configured custom domains as a no-op on
+  // subsequent deploys, so this is safe even though they were originally
+  // created via the dashboard.
+  "routes": [
+    { "pattern": "mamajiggles.com", "custom_domain": true },
+    { "pattern": "www.mamajiggles.com", "custom_domain": true }
+  ],
+
+  // Keep the *.workers.dev URL active as a backup channel and to support
+  // PR preview URLs (per-branch & per-commit). Without these explicit,
+  // Wrangler emits a default-behavior warning on every deploy.
+  "workers_dev": true,
+  "preview_urls": true,
+
+  // Per-request logs and metrics in the Cloudflare dashboard.
+  "observability": {
+    "enabled": true
   }
 }
