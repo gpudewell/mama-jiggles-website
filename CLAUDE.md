@@ -1,5 +1,7 @@
 # Mama Jiggles Website — Working With Claude
 
+Map: MAP.md — read it first
+
 This project is the marketing landing page for **Mama Jiggles** (hand-crafted Jell-O shots). The QR code on her business cards points here.
 
 Two kinds of people use Claude on this repo:
